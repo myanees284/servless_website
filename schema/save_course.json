@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "CourseInputModel",
+    "type": "object",
+    "properties": {
+      "title": {"type": "string"},
+      "authorId": {"type": "string"},
+      "length": {"type": "string"},
+      "category": {"type": "string"}
+    },
+    "required": ["title", "authorId", "length", "category"]
+  }

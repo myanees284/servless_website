@@ -1,0 +1,49 @@
+{
+  "authors": [
+      {
+          "PutRequest": {
+              "Item": {
+                  "id": {
+                      "S": "Cory-house"
+                  },
+                  "firstName": {
+                      "S": "Cory"
+                  },
+                  "lastName": {
+                    "S": "house"
+                }
+              }
+          }
+      },
+      {
+        "PutRequest": {
+            "Item": {
+                "id": {
+                    "S": "samer-buma"
+                },
+                "firstName": {
+                    "S": "Samer"
+                },
+                "lastName": {
+                  "S": "Buma"
+              }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "id": {
+                    "S": "deborah-kurata"
+                },
+                "firstName": {
+                    "S": "deborah"
+                },
+                "lastName": {
+                  "S": "kurata"
+              }
+            }
+        }
+    }
+  ]
+}
