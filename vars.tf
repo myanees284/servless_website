@@ -4,7 +4,7 @@ variable "db_tables" {
 }
 
 variable "region" { default = "us-west-2" }
-
+variable "bucketname" { default = "superbucket" }
 
 // variable "http_method" {
 //   type    = list(string)

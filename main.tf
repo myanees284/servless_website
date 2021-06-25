@@ -6,8 +6,8 @@ provider "aws" {
 # IAM role creation
 module "awsRole" {
   source               = "github.com/myanees284/tf-module-iamRole"
-  policyFilePath       = "dynamodb_policy.json"
-  assumeRolePolicyName = "assume_role_policy.json"
+  policyFilePath       = "templates/dynamodb_policy.json"
+  assumeRolePolicyName = "templates/assume_role_policy.json"
   iamRoleName          = "dynamodb_lambda"
 }
 
@@ -93,7 +93,8 @@ resource "aws_api_gateway_stage" "stage" {
 
 resource "null_resource" "config_tasks" {
   provisioner "local-exec" {
-    command = "bash run_config.sh ${aws_api_gateway_stage.stage.invoke_url}"
+    command = "bash config_tasks/run_config.sh ${aws_api_gateway_stage.stage.invoke_url}"
   }
   depends_on = [aws_api_gateway_deployment.deployment]
 }
+
