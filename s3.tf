@@ -13,7 +13,9 @@ resource "aws_s3_bucket" "bucket" {
     Environment = "Dev"
   }
 }
-
+locals {
+  s3_origin_id = "serverlessOrigin"
+}
 resource "null_resource" "upload_build_to_s3" {
   provisioner "local-exec" {
     command = "bash config_tasks/upload.sh ${path.module}/react-app-frontend/build ${aws_s3_bucket.bucket.id} ${aws_s3_bucket.bucket.website_endpoint}"
