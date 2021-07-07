@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = "superbucket"
-  acl    = "public-read"
+  bucket = var.bucket
+  acl    = var.acl
   # to delete non empty bucket at terraform destroy
   force_destroy = true
   policy        = templatefile("templates/s3-policy.json", { bucket = "${var.bucketname}" })
@@ -9,13 +9,14 @@ resource "aws_s3_bucket" "bucket" {
     error_document = "index.html"
   }
   tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
+    Name        = var.bucket
+    Environment = var.Environment
   }
 }
 locals {
-  s3_origin_id = "serverlessOrigin"
+  s3_origin_id = var.s3_origin_id
 }
+
 resource "null_resource" "upload_build_to_s3" {
   provisioner "local-exec" {
     command = "bash config_tasks/upload.sh ${path.module}/react-app-frontend/build ${aws_s3_bucket.bucket.id} ${aws_s3_bucket.bucket.website_endpoint}"
