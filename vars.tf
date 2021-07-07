@@ -2,6 +2,10 @@ variable "db_tables" {
   type    = list(string)
   default = ["courses", "authors"]
 }
+variable "locations" {
+  type    = list(string)
+  default = ["US", "IN", "GB", "AE"]
+}
 variable "region" { default = "us-west-2" }
 variable "bucketname" { default = "superbucket" }
 variable "iamRoleName" { default = "dynamodb_lambda" }
@@ -12,3 +16,5 @@ variable "bucket" { default = "superbucket" }
 variable "acl" { default = "public-read" }
 variable "Environment" { default = "dev" }
 variable "s3_origin_id" { default = "serverlessOrigin" }
+variable "restriction_type" { default = "whitelist" }
+variable "default_root_object" { default = "index.html" }
