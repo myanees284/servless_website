@@ -8,7 +8,7 @@ module "awsRole" {
   source               = "github.com/myanees284/tf-module-iamRole"
   policyFilePath       = "templates/dynamodb_policy.json"
   assumeRolePolicyName = "templates/assume_role_policy.json"
-  iamRoleName          = "dynamodb_lambda"
+  iamRoleName          = var.iamRoleName
 }
 
 # lambda creation and attaching role
@@ -17,7 +17,7 @@ module "awsLambda" {
   source           = "github.com/myanees284/tf-module-lambda"
   iamRoleArn       = module.awsRole.iamRoleArn
   lambdaCodeFile   = "./python_files/${each.value}"
-  event_source_arn = "some event src urn"
+  event_source_arn = var.event_source_arn
 }
 
 # dynamo db table creation
@@ -44,8 +44,8 @@ resource "aws_dynamodb_table" "course-table" {
 #Creating API gateway with CORS resources enabled.
 module "api_gw" {
   source        = "./modules/api_gw"
-  rest_api_name = "courses-api"
-  path_part     = ["courses", "authors"]
+  rest_api_name = var.rest_api_name
+  path_part     = var.db_tables
 }
 
 resource "aws_api_gateway_request_validator" "the" {
@@ -88,7 +88,7 @@ resource "aws_api_gateway_deployment" "deployment" {
 resource "aws_api_gateway_stage" "stage" {
   deployment_id = aws_api_gateway_deployment.deployment.id
   rest_api_id   = module.api_gw.rest_api_id
-  stage_name    = "dev_demo"
+  stage_name    = var.stage_name
 }
 
 resource "null_resource" "config_tasks" {
