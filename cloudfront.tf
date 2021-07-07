@@ -23,7 +23,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      locations        = ["US", "IN", "GB", "AE"]
     }
   }
   viewer_certificate {
@@ -33,4 +33,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled             = true
   retain_on_delete    = true
   depends_on          = [null_resource.upload_build_to_s3]
+}
+
+resource "null_resource" "cloudfronturl" {
+  provisioner "local-exec" {
+    command = "bash config_tasks/cloudfront-url.sh ${aws_cloudfront_distribution.s3_distribution.domain_name}"
+  }
+  depends_on = [aws_cloudfront_distribution.s3_distribution]
 }
