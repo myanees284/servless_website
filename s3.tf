@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = var.bucket
+  bucket = var.bucketname
   acl    = var.acl
   # to delete non empty bucket at terraform destroy
   force_destroy = true
@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "bucket" {
     error_document = "index.html"
   }
   tags = {
-    Name        = var.bucket
+    Name        = var.bucketname
     Environment = var.Environment
   }
 }

@@ -1,6 +1,6 @@
 #provider tells terraform which cloud provider and region to use
 provider "aws" {
-  region = "us-west-2"
+  region = var.region
 }
 
 # IAM role creation
