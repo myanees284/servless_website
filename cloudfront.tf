@@ -22,14 +22,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
   restrictions {
     geo_restriction {
-      restriction_type = "whitelist"
-      locations        = ["US", "IN", "GB", "AE"]
+      restriction_type = var.restriction_type
+      locations        = var.locations
     }
   }
   viewer_certificate {
     cloudfront_default_certificate = true
   }
-  default_root_object = "index.html"
+  default_root_object = var.default_root_object
   enabled             = true
   retain_on_delete    = true
   depends_on          = [null_resource.upload_build_to_s3]
