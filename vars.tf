@@ -2,20 +2,13 @@ variable "db_tables" {
   type    = list(string)
   default = ["courses", "authors"]
 }
-
 variable "region" { default = "us-west-2" }
 variable "bucketname" { default = "superbucket" }
-
-// variable "http_method" {
-//   type    = list(string)
-//   default = ["PUT", "GET", "DELETE"]
-// }
-
-// variable "http_methods_lambda" {
-//   default = {
-//     "PUT"    = "updateCourse.py"
-//     "GET"    = "getCourse.py"
-//     "DELETE" = "deleteCourse.py"
-//   }
-//   type = map(string)
-// }
+variable "iamRoleName" { default = "dynamodb_lambda" }
+variable "event_source_arn" { default = "some event src urn" }
+variable "rest_api_name" { default = "courses-api" }
+variable "stage_name" { default = "dev_demo" }
+variable "bucket" { default = "superbucket" }
+variable "acl" { default = "public-read" }
+variable "Environment" { default = "dev" }
+variable "s3_origin_id" { default = "serverlessOrigin" }
