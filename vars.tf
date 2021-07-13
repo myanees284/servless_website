@@ -17,3 +17,4 @@ variable "Environment" { default = "dev" }
 variable "s3_origin_id" { default = "serverlessOrigin" }
 variable "restriction_type" { default = "whitelist" }
 variable "default_root_object" { default = "index.html" }
+variable "domain" { default = "jewishgan.ga" }

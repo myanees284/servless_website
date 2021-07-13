@@ -5,7 +5,7 @@ provider "aws" {
 
 # IAM role creation
 module "awsRole" {
-  source               = "github.com/myanees284/tf-module-iamRole"
+  source               = "github.com/myanees284/terraform-aws-iamRole"
   policyFilePath       = "templates/dynamodb_policy.json"
   assumeRolePolicyName = "templates/assume_role_policy.json"
   iamRoleName          = var.iamRoleName
@@ -14,7 +14,7 @@ module "awsRole" {
 # lambda creation and attaching role
 module "awsLambda" {
   for_each         = fileset("./python_files/", "*.py")
-  source           = "github.com/myanees284/tf-module-lambda"
+  source           = "github.com/myanees284/terraform-aws-lambda"
   iamRoleArn       = module.awsRole.iamRoleArn
   lambdaCodeFile   = "./python_files/${each.value}"
   event_source_arn = var.event_source_arn
@@ -97,4 +97,3 @@ resource "null_resource" "config_tasks" {
   }
   depends_on = [aws_api_gateway_deployment.deployment]
 }
-

@@ -15,7 +15,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
         forward = "none"
       }
     }
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
@@ -27,12 +27,15 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate.cert.arn
+    minimum_protocol_version = "TLSv1"
+    ssl_support_method       = "sni-only"
   }
   default_root_object = var.default_root_object
+  aliases             = ["${var.domain}"]
   enabled             = true
-  retain_on_delete    = true
-  depends_on          = [null_resource.upload_build_to_s3]
+  // retain_on_delete    = true
+  depends_on          = [null_resource.upload_build_to_s3, aws_route53_record.record]
 }
 
 resource "null_resource" "cloudfronturl" {
